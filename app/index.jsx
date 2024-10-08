@@ -20,7 +20,7 @@ export default function App() {
                 
                 <View style={{ width: "100%", gap: 15, marginBottom: 20 }}>
                     <MainButton text="Usuário" onPress={() => { router.navigate("/auth/user/register") }} />
-                    <MainButton text="Empresa" onPress={() => { router.navigate("/auth/company/register") }} />
+                    <MainButton text="Empresa" onPress={() => { router.navigate("/auth/company/registercompany") }} />
                     <MainButton text="Entrar" onPress={() => { router.navigate("/auth/user/login") }} border={true} />
                 </View>
 

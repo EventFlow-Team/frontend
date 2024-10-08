@@ -1,6 +1,6 @@
 import React from "react";
 
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Button,} from "react-native";
 import { router } from "expo-router";
 
 
@@ -12,7 +12,9 @@ export default function UserRegister() {
     const handleSubmit = async () => {
         alert("Usário criado com sucesso!");
         router.navigate("/auth/user/register2");
+        
     }
+    
 
     return (
         <View style={styles.container}>
@@ -22,19 +24,23 @@ export default function UserRegister() {
             
                 <View style={globalStyles.authContent}>
                     <View style={{ marginBottom: 40, alignItems: "center" }}>
-                        <Text style={globalStyles.welcomeText}>Faça seu cadastro</Text>
-                        <Text style={{ color: "gray", fontWeight: 500 }}>Preencha todos os campos</Text>
+                        <Text style={globalStyles.welcomeText}>Termine seu cadastro</Text>
+                        <Text style={{ color: "gray", fontWeight: 500 }}>Adicione uma foto de perfil clicando no astronauta.</Text>
                     </View>
 
-                    <MainTextInput placeholder="Nome" />
-                    <MainTextInput placeholder="Sobrenome" />
-                    <MainTextInput placeholder="Email" />
-                    <MainTextInput placeholder="Senha" />
-                    <MainTextInput placeholder="Confirmar senha" />
+                    <View style={styles.input}>
+                        
+                        <Image source={"../../../assets/imgs/astronauta.png"} style={{marginVertical:70, width: 100, height: 100, borderRadius: 50, alignSelf: 'center'}}/>
+                        
+                        
+                        
+
+                    </View>
+
+                    
 
                     <View style={{ width: "100%", marginTop: 30 }}>
-                        <MainButton text="Continuar" onPress={handleSubmit} border={true} />
-                        <TouchableOpacity onPress={() => { router.navigate("/auth/user/register2")}}/>
+                        <MainButton text="Finalizar" onPress={() => { router.replace("(tabs)") }} border={true} />
                     </View>
 
                     <View style={{ flexDirection: "row", gap: 5, marginTop: 15, justifyContent: "center" }}>
@@ -57,5 +63,25 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 12,
         marginBottom: 15
+    },
+
+    input: {
+        borderRadius: 10,
+        borderStyle: "dashed",
+        borderColor: "#0766cf",
+        borderWidth: 2,
+        width: "100%",
+        height: 251,
+    },
+
+    btnupload: {
+        borderRadius: 10,
+        borderStyle: "dotted",
+        borderColor: "#0766cf",
+        borderWidth: 1,
+        width: "40%",
+        marginHorizontal:91,
+        marginTop:43,
+        height: 27
     },
 });

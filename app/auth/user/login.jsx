@@ -19,7 +19,7 @@ export default function Login() {
 
                 <View style={{ gap: 15, width: "100%", marginTop: 30, marginBottom: 20 }}>
                     <MainButton text="Entrar" onPress={() => { router.replace("(tabs)") }} />
-                    <MainButton text="Cadastre-se" onPress={""} border={true} />
+                    <MainButton text="voltar" onPress={() => { router.back() }} border={true} />
                 </View>
 
                 <Text style={globalStyles.footerText}>Entrar usando</Text>

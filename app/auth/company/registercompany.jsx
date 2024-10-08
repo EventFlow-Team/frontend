@@ -11,7 +11,7 @@ import MainTextInput from "../../../components/inputs/mainTextInput";
 export default function UserRegister() {
     const handleSubmit = async () => {
         alert("Usário criado com sucesso!");
-        router.navigate("/auth/user/register2");
+        router.navigate("/auth/company/registercompany1");
     }
 
     return (
@@ -26,15 +26,15 @@ export default function UserRegister() {
                         <Text style={{ color: "gray", fontWeight: 500 }}>Preencha todos os campos</Text>
                     </View>
 
-                    <MainTextInput placeholder="Nome" />
-                    <MainTextInput placeholder="Sobrenome" />
+                    <MainTextInput placeholder="Nome da empresa" />
+                    <MainTextInput placeholder="CNPJ" />
                     <MainTextInput placeholder="Email" />
                     <MainTextInput placeholder="Senha" />
                     <MainTextInput placeholder="Confirmar senha" />
 
                     <View style={{ width: "100%", marginTop: 30 }}>
                         <MainButton text="Continuar" onPress={handleSubmit} border={true} />
-                        <TouchableOpacity onPress={() => { router.navigate("/auth/user/register2")}}/>
+                        <TouchableOpacity onPress={() => { router.navigate("/auth/company/registercompany1")}}/>
                     </View>
 
                     <View style={{ flexDirection: "row", gap: 5, marginTop: 15, justifyContent: "center" }}>
