@@ -1,6 +1,8 @@
+import React from 'react';
 import { View, Text } from 'react-native';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { Tabs } from 'expo-router';
+
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export default function TabLayout() {
   return (
@@ -11,9 +13,11 @@ export default function TabLayout() {
           headerShown: false,
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <View style={{ backgroundColor: focused ? '#0280FE' : 'transparent', borderRadius: 16, paddingHorizontal: 20, paddingVertical:4, flexDirection: "row",width: 64,
-                height: 32, }}>
-              <FontAwesome5 size={22} name="home" color={color}/>
+            <View style={{
+              backgroundColor: focused ? '#0280FE' : 'transparent', borderRadius: 16, paddingHorizontal: 20, paddingVertical: 4, flexDirection: "row", width: 64,
+              height: 32,
+            }}>
+              <FontAwesome5 size={22} name="home" color={color} />
             </View>
           ),
         }}
@@ -24,9 +28,26 @@ export default function TabLayout() {
           headerShown: false,
           title: 'Eventos',
           tabBarIcon: ({ color, focused }) => (
-            <View style={{ backgroundColor: focused ? '#0280FE' : 'transparent', borderRadius: 16, paddingHorizontal: 20, paddingVertical:4, flexDirection: "row",width: 64,
-                height: 32, }}>
+            <View style={{
+              backgroundColor: focused ? '#0280FE' : 'transparent', borderRadius: 16, paddingHorizontal: 20, paddingVertical: 4, flexDirection: "row", width: 64,
+              height: 32,
+            }}>
               <FontAwesome5 size={22} name="calendar" color={color} />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          headerShown: false,
+          title: 'Perfil',
+          tabBarIcon: ({ color, focused }) => (
+            <View style={{
+              backgroundColor: focused ? '#0280FE' : 'transparent', borderRadius: 16, paddingHorizontal: 20, paddingVertical: 4, flexDirection: "row", width: 64,
+              height: 32,
+            }}>
+              <FontAwesome5 size={22} name="user" color={color} />
             </View>
           ),
         }}

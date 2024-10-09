@@ -46,7 +46,7 @@ export default function Home() {
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end" }}>
             <TouchableOpacity style={[globalStyles.button, { marginTop: 10 }]}>
-              <Text style={globalStyles.buttonText} onPress={() => router.navigate('/auth/user/login')} >Criar Evento</Text>
+              <Text style={globalStyles.buttonText} onPress={() => router.navigate('/auth/login')} >Criar Evento</Text>
             </TouchableOpacity>
             <Image source={require("../../assets/imgs/logo.png")} style={{ resizeMode: "stretch", width: 76, height: 43 }} />
           </View>

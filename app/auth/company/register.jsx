@@ -11,7 +11,7 @@ import MainTextInput from "../../../components/inputs/mainTextInput";
 export default function UserRegister() {
     const handleSubmit = async () => {
         alert("Usário criado com sucesso!");
-        router.navigate("/auth/company/registercompany1");
+        router.navigate("/auth/company/register1");
     }
 
     return (
@@ -34,12 +34,12 @@ export default function UserRegister() {
 
                     <View style={{ width: "100%", marginTop: 30 }}>
                         <MainButton text="Continuar" onPress={handleSubmit} border={true} />
-                        <TouchableOpacity onPress={() => { router.navigate("/auth/company/registercompany1")}}/>
+                        <TouchableOpacity onPress={() => { router.navigate("/auth/company/register1")}}/>
                     </View>
 
                     <View style={{ flexDirection: "row", gap: 5, marginTop: 15, justifyContent: "center" }}>
                         <Text style={globalStyles.footerText}>Já possui uma conta?</Text>
-                        <TouchableOpacity onPress={() => { router.navigate("/auth/user/login") }}>
+                        <TouchableOpacity onPress={() => { router.navigate("/auth/login") }}>
                             <Text style={[globalStyles.footerText, { fontWeight: 500, textDecorationLine: "underline" }]}>Entrar</Text>
                         </TouchableOpacity>
                     </View>

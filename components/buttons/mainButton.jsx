@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
 
 import { globalColors } from '../../styles/globalStyles';
 
-export default function MainButton({ onPress, text, border = false }) {
+export default function MainButton({ onPress, text, border = false, loading = false }) {
     return (
         <TouchableOpacity onPress={onPress} style={border ? styles.borderButton : styles.mainButton}>
-            <Text style={border ? styles.borderButtonText : styles.buttonText}>{text}</Text>
+            {loading ?
+                <ActivityIndicator size="small" color="#fff" />
+                :
+                <Text style={border ? styles.borderButtonText : styles.buttonText}>{text}</Text>
+            }
+
         </TouchableOpacity>
     );
 }
@@ -18,6 +23,8 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 10,
         alignItems: 'center',
+        height: 60,
+        justifyContent: 'center'
     },
     borderButton: {
         width: '100%',
@@ -25,7 +32,9 @@ const styles = StyleSheet.create({
         borderColor: globalColors.darkBlue,
         padding: 15,
         borderRadius: 10,
-        alignItems: 'center',
+        height: 60,
+        justifyContent: "center",
+        alignItems: "center"
     },
     buttonText: {
         color: '#fff',

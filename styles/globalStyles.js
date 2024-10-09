@@ -74,4 +74,18 @@ export const globalStyles = StyleSheet.create({
         color: globalColors.main,
         marginBottom: 10,
     },
+    errorText: {
+        color: 'red',
+        alignSelf: 'flex-start',
+        fontSize: 10,
+        fontWeight: "500"
+    },
+    mainTextInput: {
+        width: "100%",
+        borderWidth: 1,
+        borderColor: "#0766CF",
+        padding: 13,
+        borderRadius: 10,
+        fontSize: 14,
+    }
 })

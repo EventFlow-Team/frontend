@@ -1,24 +1,46 @@
-import { TextInput, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import { TextInput, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { Feather } from '@expo/vector-icons';
 
-export default function MainTextInput({ placeholder, placeholderTextColor = "#000" }) {
+import { globalColors } from '../../styles/globalStyles';
+
+export default function MainTextInput({ placeholder, placeholderTextColor = "#000", value, onChange, hideText = false }) {
+  const [hide, setHide] = useState(true);
+
   return (
-    <TextInput 
+    <View style={styles.inputarea}>
+      <TextInput
         style={styles.textInput}
         placeholder={placeholder}
         placeholderTextColor={placeholderTextColor}
-    />
+        value={value}
+        onChangeText={onChange}
+        secureTextEntry={hideText ? hide : false}
+      />
+
+      {hideText &&
+        <TouchableOpacity onPress={() => setHide(!hide)}>
+          <Feather name={hide ? "eye-off" : "eye"} size={24} color="#593C9D" />
+        </TouchableOpacity>
+      }
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-    textInput: {
-        width: "100%",
-        borderWidth: 1,
-        borderColor: "#0766CF",
-        padding: 13,
-        borderRadius: 10,
-        marginBottom: 15,
-        fontSize: 14,
-    },
+  inputarea: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 13,
+    width: "100%",
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: globalColors.main,
+    justifyContent: 'space-between',
+
+  },
+  textInput: {
+    width: "90%",
+    fontSize: 14,
+  },
 })
