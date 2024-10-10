@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'rea
 import { globalColors, globalStyles } from '../../styles/globalStyles';
 import SearchBar from '../../components/navBar/searchBar';
 import { EventsList } from '../../components/flatLists/eventsList';
+import Api from '../../services/api';
 
 const Card = ({ title, subtitle, date, onSeeMore, onParticipate }) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
-        {/* Add your event icon here */}
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
@@ -28,13 +28,9 @@ const Card = ({ title, subtitle, date, onSeeMore, onParticipate }) => {
 };
 
 export default function Home() {
-  const eventsData = [
-    { title: 'EPA', subtitle: '@epa_etc_fu', date: 'Dia: 12/12/2024 Hora: 12:00 - 20:00' },
-    { title: 'EPA2', subtitle: '@epa_etc_fu', date: 'Dia: 12/12/2024 Hora: 12:00 - 20:00' },
-    { title: 'EPA', subtitle: '@epa_etc_fu', date: 'Dia: 12/12/2024 Hora: 12:00 - 20:00' },
-    
-    // Add more event data here
-  ];
+  const events = async () => {
+    Api.get('/events')
+  };
 
   return (
     <View style={globalStyles.container}>
@@ -54,17 +50,6 @@ export default function Home() {
 
         <View style={[globalStyles.container, {marginHorizontal: 10, alignContent:'center', justifyContent: 'space-between' }]}>
           <Text style={[globalStyles.sectionTitle, {marginBottom:10,}]}>Eventos</Text>
-          {eventsData.map((event, index) => (
-            <Card
-              key={index}
-              title={event.title}
-              subtitle={event.subtitle}
-              date={event.date}
-              onSeeMore={() => console.log('Ver mais')}
-              onParticipate={() => console.log('Participar')}
-              style={{ width: '48%' }} // Added style for card width
-            />
-          ))}
         </View>
       </ScrollView>
     </View>

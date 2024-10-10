@@ -60,7 +60,7 @@ export default function Login() {
                         name="email"
                         render={({ field: { onChange, value } }) => (
                             <View>
-                                <MainTextInput placeholder="Email" onChange={onChange} value={value} />
+                                <MainTextInput placeholder="Email ou Código da Empresa" onChange={onChange} value={value} />
                                 {errors.email && <Text style={globalStyles.errorText}>{errors.email.message}</Text>}
                             </View>
                         )}
