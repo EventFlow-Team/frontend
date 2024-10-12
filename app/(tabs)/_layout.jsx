@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Tabs } from 'expo-router';
 
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import { Feather, FontAwesome5 } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorBackground = "#rgba(2, 128, 254, 0.5)";
@@ -15,7 +15,7 @@ export default function TabLayout() {
           headerShown: false,
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <FontAwesome5 size={22} name="home" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
+            <Feather size={22} name="home" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
           ),
         }}
       />
@@ -25,7 +25,7 @@ export default function TabLayout() {
           headerShown: false,
           title: 'Eventos',
           tabBarIcon: ({ color, focused }) => (
-            <FontAwesome5 size={22} name="calendar" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
+            <Feather size={22} name="calendar" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
           ),
         }}
       />
@@ -35,7 +35,7 @@ export default function TabLayout() {
           headerShown: false,
           title: 'Perfil',
           tabBarIcon: ({ color, focused }) => (
-            <FontAwesome5 size={22} name="user" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
+            <Feather size={22} name="user" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
           ),
         }}
       />

@@ -56,6 +56,19 @@ export const globalStyles = StyleSheet.create({
         paddingHorizontal: 30,
         paddingVertical: 20,
     },
+    authImageController: {
+        borderWidth: 2, 
+        borderRadius: 10, 
+        borderStyle: "dashed", 
+        borderColor: globalColors.main, 
+        height: Dimensions.get("window").height * 0.25,
+        alignItems: "center",
+        justifyContent: "center",
+    },  
+    controllerContainer: {
+        width: "100%",
+        gap: 15
+    },
     backgroundLogo: {
         width: "100%",
         height: width * 0.7,
@@ -78,7 +91,8 @@ export const globalStyles = StyleSheet.create({
         color: 'red',
         alignSelf: 'flex-start',
         fontSize: 10,
-        fontWeight: "500"
+        fontWeight: "500",
+        marginTop: 5,
     },
     mainTextInput: {
         width: "100%",
@@ -87,5 +101,14 @@ export const globalStyles = StyleSheet.create({
         padding: 13,
         borderRadius: 10,
         fontSize: 14,
-    }
+    },
+    cardContainer: {
+        backgroundColor: "#fff",
+        padding: 10,
+        borderRadius: 20,
+    },
+    cardHeader: {
+        paddingBottom: 10,
+        flexDirection: "row",
+    },
 })

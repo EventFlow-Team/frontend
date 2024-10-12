@@ -1,36 +1,37 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, FlatList } from 'react-native';
 
 import { globalColors, globalStyles } from '../../styles/globalStyles';
 import SearchBar from '../../components/navBar/searchBar';
-import { EventsList } from '../../components/flatLists/eventsList';
+import { useUser } from '../../services/contexts/userContext';
 import Api from '../../services/api';
 
-const Card = ({ title, subtitle, date, onSeeMore, onParticipate }) => {
-  return (
-    <View style={styles.card}>
-      <View style={styles.cardHeader}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
-      </View>
-      <View style={styles.cardBody}>
-        <Text style={styles.date}>{date}</Text>
-      </View>
-      <View style={styles.cardFooter}>
-        <TouchableOpacity onPress={onSeeMore}>
-          <Text style={styles.button}>Ver mais</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onParticipate}>
-          <Text style={styles.button}>Participar</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
-
 export default function Home() {
-  const events = async () => {
-    Api.get('/events')
+  const { user, getUser } = useUser();
+  const [event, setEvent] = useState([]);
+
+  const getEvents = async () => {
+    await Api.get('/event')
+      .then(response => {
+        setEvent(response.data.events);
+      })
+      .catch(error => {
+        console.log(error.response.data);
+      });
   };
+
+  const onSeeMore = (id) => {
+    console.log(`Ver mais sobre o evento com id: ${id}`);
+  };
+
+  const onParticipate = (id) => {
+    console.log(`Participar do evento com id: ${id}`);
+  };
+
+  useEffect(() => {
+    getUser();
+    getEvents();
+  }, []);
 
   return (
     <View style={globalStyles.container}>
@@ -48,54 +49,63 @@ export default function Home() {
           </View>
         </View>
 
-        <View style={[globalStyles.container, {marginHorizontal: 10, alignContent:'center', justifyContent: 'space-between' }]}>
-          <Text style={[globalStyles.sectionTitle, {marginBottom:10,}]}>Eventos</Text>
+        <View style={[globalStyles.container, { marginHorizontal: 10, alignContent: 'center', justifyContent: 'space-between' }]}>
+          <Text style={[globalStyles.sectionTitle, { marginBottom: 10 }]}>Eventos</Text>
+          <FlatList
+            data={[...event].reverse()}
+            renderItem={({ item }) => (
+              <Card item={item} onSeeMore={onSeeMore} onParticipate={onParticipate} />
+            )}
+            keyExtractor={item => item._id}
+            numColumns={2}
+            scrollEnabled={false}
+            columnWrapperStyle={{ justifyContent: 'space-between' }}
+            contentContainerStyle={{ paddingTop: 20 }}
+          />
         </View>
       </ScrollView>
     </View>
   );
 }
 
+const Card = ({ item, onSeeMore }) => {
+  const [companyName, setComapanyName] = useState('');
+  
+  const getCompanyById = async () => {
+    await Api.get(`/company/${item.companyId}`)
+      .then(response => {
+        setComapanyName(response.data.company.name);
+      })
+      .catch(error => {
+        console.log(error.response.data);
+      });
+  };
+
+  useEffect(() => { 
+    getCompanyById();
+  }, []);
+
+  return (
+    <View style={[globalStyles.cardContainer, { marginRight: 10, marginBottom: 10, width: "50%" }]}>
+      <View style={globalStyles.cardHeader}>
+        <Image source={item.image} style={{  }} />
+        <View>
+          <Text style={{  }}>{item.name}</Text>
+          <Text>{companyName}</Text>
+        </View>
+      </View>
+      <View style={styles.cardBody}>
+        <Text style={styles.date}>{item.startDate}</Text>
+        <Text style={styles.date}>{item.finishDate}</Text>
+      </View>
+      <View style={styles.cardFooter}>
+        <TouchableOpacity onPress={() => onSeeMore(item._id)}>
+          <Text style={styles.button}>Ver mais</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 40,
-    padding: 20,
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius:3.84,
-    elevation: 5,
-    borderWidth: 1,
-    borderColor: 
- '#ccc', // Adjust border color as needed
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  cardBody: {
-    marginTop: 10,
-  },
-  cardFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 100,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-
-  button:{
-
-    width: '100%',
-    borderWidth: 1,
-    borderColor: globalColors.darkBlue,
-    padding: 10,
-    borderRadius: 100,
-    alignItems: 'center',
-    fontSize: 13,
-  },
 });

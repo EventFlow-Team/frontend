@@ -54,7 +54,7 @@ export default function Login() {
             <View style={globalStyles.authContent}>
                 <Text style={[globalStyles.welcomeText, { marginBottom: 40 }]}>Bem vindo</Text>
 
-                <View style={{ gap: 15, width: "100%" }}>
+                <View style={globalStyles.controllerContainer}>
                     <Controller
                         control={control}
                         name="email"
@@ -80,7 +80,7 @@ export default function Login() {
 
                 <View style={{ gap: 15, width: "100%", marginTop: 30, marginBottom: 20 }}>
                     <MainButton text="Entrar" onPress={handleSubmit(onSubmit)} loading={loading}/>
-                    <MainButton text="voltar" onPress={() => { router.back() }} border={true} />
+                    <MainButton text="voltar" onPress={() => { router.replace('/') }} border={true} />
                 </View>
 
                 <Text style={globalStyles.footerText}>Entrar usando</Text>

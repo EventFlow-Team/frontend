@@ -18,6 +18,7 @@ export default function App() {
         hasToken();
     }, []);
 
+
     return (
         <View style={styles.container}>
             <Image source={require("../assets/imgs/authBackground.png")} style={globalStyles.backgroundLogo} />
