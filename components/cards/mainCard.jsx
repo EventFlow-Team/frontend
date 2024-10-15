@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, ImageBackground } from 'react-native';
 
 import { globalColors, globalStyles } from '../../styles/globalStyles';
-import { Feather } from '@expo/vector-icons'
+import { Feather, FontAwesome } from '@expo/vector-icons'
 import Api from '../../services/api';
 
-export default function MainCard({ item, cardWidth, pressable = true, onPress, description = false, buttonText, categories = false }) {
+export default function MainCard({ item, cardWidth, pressable = true, onPress, description = false, buttonText, categories = false, borderButton = false, loading = false }) {
     const [company, setComapany] = useState('');
 
     const getCompanyById = async () => {
@@ -55,7 +55,12 @@ export default function MainCard({ item, cardWidth, pressable = true, onPress, d
 
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View>
-                        <Image source={{ uri: item?.image }} style={{ width: "100%", height: 100 }} />
+                        <ImageBackground source={{ uri: item?.image }} style={{ width: "100%", height: 100 }}>
+                            <View style={{ position: "absolute", flexDirection: "row", alignItems: "center", gap: 5, backgroundColor: "rgba(0, 0, 0, 0.1)", paddingVertical: 3, paddingHorizontal: 10, borderRadius: 20, justifyContent: "center" }}>
+                                <FontAwesome name="circle" size={10} color={item.status === "closed" ? "red" : "green"} />
+                                <Text style={{ fontSize: 12 }}>{item.status === "closed" ? "Fechado" : "Em andamento"}</Text>
+                            </View>
+                        </ImageBackground>
                     </View>
 
                     {buttonText ?
@@ -64,8 +69,12 @@ export default function MainCard({ item, cardWidth, pressable = true, onPress, d
                                 <TouchableOpacity>
                                     <Feather name='info' size={26} />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={onPress}>
-                                    <Text style={styles.buttonText}>{buttonText}</Text>
+                                <TouchableOpacity style={[borderButton ? styles.borderButton : styles.button, { width: "25%" }]} onPress={onPress}>
+                                    {loading ?
+                                        <ActivityIndicator size="small" color={borderButton ? globalColors.main : "#fff"} />
+                                        :
+                                        <Text style={borderButton ? styles.borderButtonText : styles.buttonText}>{buttonText}</Text>
+                                    }
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -133,7 +142,7 @@ const styles = StyleSheet.create({
     borderButton: {
         borderWidth: 1,
         borderColor: globalColors.darkBlue,
-        padding: 15,
+        padding: 8,
         borderRadius: 10,
         justifyContent: "center",
         alignItems: "center"
@@ -145,7 +154,7 @@ const styles = StyleSheet.create({
     },
     borderButtonText: {
         color: globalColors.darkBlue,
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: "600"
     },
 });

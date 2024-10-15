@@ -1,37 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 import { globalStyles } from '../../styles/globalStyles';
 import { FontAwesome6 } from '@expo/vector-icons';
+import { useUserEvents } from '../../services/contexts/userEventsContext';
 import SearchBar from '../../components/navBar/searchBar';
-import Api from '../../services/api';
+import MainCard from '../../components/cards/mainCard';
+import { router } from 'expo-router';
 
 export default function Events() {
-  const [event, setEvent] = useState([]);
-
-  const getEvents = async () => {
-    await Api.get('/event/user')
-      .then(response => {
-        setEvent(response.data.events);
-      })
-      .catch(error => {
-        console.log(error.response.data);
-      });
-  }
+  const { userEvent, getUserEvents } = useUserEvents();
 
   useEffect(() => {
-    getEvents();
+    getUserEvents();
   }, []);
 
   return (
     <View style={globalStyles.container}>
-      <SearchBar />
+      <SearchBar title={`Meus Eventos ( ${userEvent.length} )`} />
 
-      <View style={{ marginHorizontal: 10, paddingTop: 25, flex: 1 }}>
-        <Text style={globalStyles.sectionTitle}>Meus eventos</Text>
-
-        {event.length > 0 ?
-          <Text>TEste</Text>
+      <View style={{ marginHorizontal: 10, flex: 1 }}>
+        {userEvent.length > 0 ?
+          <>
+            <FlatList
+              data={[...userEvent]}
+              keyExtractor={item => item._id}
+              renderItem={({ item }) => (
+                <View style={{ flex: 1, alignItems: "center" }}>
+                  <MainCard
+                    item={item}
+                    cardWidth={"95%"}
+                    pressable={false}
+                    description={true}
+                    buttonText={"Ver mais"}
+                    onPress={() => { router.navigate(`/events/${item._id}`) }}
+                  />
+                </View>
+              )}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ marginTop: 20, paddingBottom: 40 }}
+            />
+          </>
           :
           <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginHorizontal: 20, gap: 10 }}>
             <FontAwesome6 name="calendar-times" size={50} color="gray" />
@@ -43,6 +52,3 @@ export default function Events() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-});

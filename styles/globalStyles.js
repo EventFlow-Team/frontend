@@ -15,10 +15,10 @@ export const globalStyles = StyleSheet.create({
     },
     roundedInput: {
         borderWidth: 1,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingHorizontal: 16,
+        paddingVertical: 11,
         borderRadius: 100,
-        borderColor: "rgba(0, 0, 0, 0.37)",
+        borderColor: globalColors.main,
         flex: 1
     },
     title: {

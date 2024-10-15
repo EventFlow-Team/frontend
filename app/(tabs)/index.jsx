@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, FlatList, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, FlatList } from 'react-native';
 import { router } from 'expo-router';
 
 import { globalColors, globalStyles } from '../../styles/globalStyles';
-import SearchBar from '../../components/navBar/searchBar';
 import { useUser } from '../../services/contexts/userContext';
+import { useUserEvents } from '../../services/contexts/userEventsContext'; 
+import SearchBar from '../../components/navBar/searchBar';
 import Api from '../../services/api';
 import MainCard from '../../components/cards/mainCard';
 import MainModal from '../../components/modals/mainModal';
 import Toast from 'react-native-toast-message';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 
 export default function Home() {
@@ -18,6 +20,7 @@ export default function Home() {
   const [openEvent, setOpenEvent] = useState({});
 
   const { user, getUser } = useUser();
+  const { userEvent, getUserEvents } = useUserEvents();
 
   const getEvents = async () => {
     await Api.get('/event')
@@ -34,6 +37,11 @@ export default function Home() {
     setOpenModal(true);
   };
 
+  const handleCloseEvent = () => {
+    setOpenModal(false);
+    setOpenEvent({});
+  };
+
   const onSubmitAddEvent = async (id) => {
     setLoading(true);
 
@@ -46,6 +54,8 @@ export default function Home() {
           text2: 'Você foi adicionado ao evento.',
         });
         handleCloseEvent();
+        getUserEvents();
+        getEvents();
         router.navigate('/events');
       })
       .catch(error => {
@@ -62,15 +72,45 @@ export default function Home() {
       });
   };
 
-  const handleCloseEvent = () => {
-    setOpenModal(false);
-    setOpenEvent({});
-  };
+  const onSubmitRemoveEvent = async (id) => {
+    setLoading(true);
+
+    await Api.put(`/event/remove_user/${id}`)
+      .then(response => {
+        console.log(response.data);
+        Toast.show({
+          type: 'success',
+          text1: 'Sucesso!',
+          text2: 'Você saiu do evento.',
+        });
+        handleCloseEvent();
+        getUserEvents();
+        getEvents();
+        router.navigate('/events');
+      })
+      .catch(error => {
+        console.log(error.response.data);
+        handleCloseEvent();
+        Toast.show({
+          type: 'info',
+          text1: 'Ops!',
+          text2: 'Você não está participando desse evento.',
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   useEffect(() => {
     getUser();
     getEvents();
+    getUserEvents();
   }, []);
+
+  const isUserInEvent = (id) => {
+    return userEvent?.find(item => item._id === id);
+  };
 
   return (
     <View style={globalStyles.container}>
@@ -117,14 +157,12 @@ export default function Home() {
           cardWidth={"95%"}
           pressable={false}
           description={true}
-          button={true}
-          buttonText={"Participar"}
-          onPress={() => onSubmitAddEvent(openEvent._id)}
+          buttonText={isUserInEvent(openEvent._id) ? "Sair" : "Participar"}
+          borderButton={isUserInEvent(openEvent._id)}
+          onPress={isUserInEvent(openEvent._id) ? () => onSubmitRemoveEvent(openEvent._id) : () => onSubmitAddEvent(openEvent._id)}
+          loading={loading}
         />
       </MainModal>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-});
