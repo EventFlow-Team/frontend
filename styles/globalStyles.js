@@ -11,8 +11,7 @@ export const globalColors = {
 export const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 40,
-        paddingBottom: 20,
+        backgroundColor: "#fff",
     },
     roundedInput: {
         borderWidth: 1,
@@ -28,7 +27,7 @@ export const globalStyles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 24,
-        fontWeight: "800",
+        fontWeight: "900",
         color: globalColors.main,
         textShadowColor: 'rgba(92, 99, 255, 0.25)',
         textShadowOffset: { width: 0, height: 2 },
@@ -106,9 +105,12 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 10,
         borderRadius: 20,
+        elevation: 5,
     },
     cardHeader: {
         paddingBottom: 10,
         flexDirection: "row",
+        gap: 10,
+        alignItems: "center",
     },
 })

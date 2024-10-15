@@ -91,8 +91,9 @@ export default function UserRegister() {
                         />
                     </View>
 
-                    <View style={{ width: "100%", marginTop: 30 }}>
-                        <MainButton text="Continuar" onPress={handleSubmit(onSubmit)} border={true} />
+                    <View style={{ width: "100%", marginTop: 30, gap: 15 }}>
+                        <MainButton text="Continuar" onPress={handleSubmit(onSubmit)} />
+                        <MainButton text="Voltar" onPress={() => router.back()} border={true} />
                         <TouchableOpacity onPress={() => { router.navigate("/auth/company/register1") }} />
                     </View>
 

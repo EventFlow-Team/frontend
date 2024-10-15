@@ -13,6 +13,7 @@ import { usePermission } from "../../../services/contexts/permissionContext";
 import MainButton from "../../../components/buttons/mainButton";
 import MainTextInput from "../../../components/inputs/mainTextInput";
 import Api from "../../../services/api";
+import { uploadImage } from "../../../services/functions/globalFunctions";
 
 const step1Schema = yup.object().shape({
     name: yup.string().required("Nome é obrigatório"),
@@ -108,22 +109,31 @@ export default function UserRegister() {
 
     const onSubmit = async (data) => {
         setLoading(true);
+        
+        const uploadedImage = image ? await uploadImage(image, "Users") : null;
 
-        const formData = new FormData();
-        formData.append("name", data.name);
-        formData.append("surname", data.surname);
-        formData.append("email", data.email);
-        formData.append("password", data.password);
-        formData.append("age", data.age);
-        formData.append("phone", data.phone);
-        formData.append("image", data.image = image);
+        const formData = {
+            name: data.name,
+            surname: data.surname,
+            email: data.email,
+            password: data.password,
+            age: data.age,
+            phone: data.phone,
+            image: uploadedImage,
+        }
 
-        await Api.post("/user/auth/register", data)
+        await Api.post("/user/auth/register", formData)
             .then((response) => {
                 console.log(response.data);
                 reset();
                 setStep(1);
                 setImage(null);
+                Toast.show({
+                    type: "success",
+                    text1: "Cadastro realizado com sucesso",
+                    text2: "Agora você pode fazer login",
+                });
+
                 router.navigate("/auth/login");
             })
             .catch(error => {

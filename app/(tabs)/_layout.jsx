@@ -8,14 +8,14 @@ export default function TabLayout() {
   const colorBackground = "#rgba(2, 128, 254, 0.5)";
 
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: '#49454F' }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: '#49454F', tabBarStyle: {height: "7%"} }}>
       <Tabs.Screen
         name="index"
         options={{
           headerShown: false,
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <Feather size={22} name="home" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
+            <Feather size={28} name="home" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
           ),
         }}
       />
@@ -25,7 +25,7 @@ export default function TabLayout() {
           headerShown: false,
           title: 'Eventos',
           tabBarIcon: ({ color, focused }) => (
-            <Feather size={22} name="calendar" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
+            <Feather size={28} name="calendar" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
           ),
         }}
       />
@@ -35,7 +35,7 @@ export default function TabLayout() {
           headerShown: false,
           title: 'Perfil',
           tabBarIcon: ({ color, focused }) => (
-            <Feather size={22} name="user" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
+            <Feather size={28} name="user" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
           ),
         }}
       />
@@ -45,7 +45,7 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   background: {
-    borderRadius: 16,
+    borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 4,
     flexDirection: "row"
