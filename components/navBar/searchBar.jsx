@@ -28,7 +28,7 @@ export default function SearchBar({ title }) {
                     <TouchableOpacity style={globalStyles.roundedInput} >
                         <Text>Pesquisar...</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => router.navigate('/profile')} style={{ width: 40, height: 40, borderRadius: 20, elevation: 10, borderWidth: 1, borderColor: "rgba(0, 0, 0, 0.3)" }}>
+                    <TouchableOpacity onPress={() => router.navigate('/user/profile')} style={{ width: 40, height: 40, borderRadius: 20, elevation: 10, borderWidth: 1, borderColor: "rgba(0, 0, 0, 0.3)" }}>
                         <Image source={{ uri: user?.image }} style={{ flex: 1, borderRadius: 20 }} />
                     </TouchableOpacity>
                     <TouchableOpacity>

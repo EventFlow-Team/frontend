@@ -30,12 +30,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="lines"
         options={{
           headerShown: false,
-          title: 'Perfil',
+          title: 'Filas',
           tabBarIcon: ({ color, focused }) => (
-            <Feather size={28} name="user" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
+            <Feather size={28} name="users" color={color} style={[styles.background, { backgroundColor: focused ? colorBackground : 'transparent' }]} />
           ),
         }}
       />

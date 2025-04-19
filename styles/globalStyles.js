@@ -103,12 +103,12 @@ export const globalStyles = StyleSheet.create({
     },
     cardContainer: {
         backgroundColor: "#fff",
-        padding: 10,
         borderRadius: 20,
-        elevation: 5,
     },
     cardHeader: {
         paddingBottom: 10,
+        paddingTop: 10, 
+        paddingHorizontal: 10,
         flexDirection: "row",
         gap: 10,
         alignItems: "center",

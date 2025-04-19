@@ -31,7 +31,7 @@ export default function Events() {
                     item={item}
                     cardWidth={"95%"}
                     pressable={false}
-                    description={true}
+                    imageHeight={200}
                     buttonText={"Ver mais"}
                     onPress={() => { router.navigate(`/events/${item._id}`) }}
                   />

@@ -10,8 +10,6 @@ import Api from '../../services/api';
 import MainCard from '../../components/cards/mainCard';
 import MainModal from '../../components/modals/mainModal';
 import Toast from 'react-native-toast-message';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
-
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -56,7 +54,7 @@ export default function Home() {
         handleCloseEvent();
         getUserEvents();
         getEvents();
-        router.navigate('/events');
+        router.navigate(`/events/${id}`);
       })
       .catch(error => {
         console.log(error.response.data);
@@ -86,7 +84,6 @@ export default function Home() {
         handleCloseEvent();
         getUserEvents();
         getEvents();
-        router.navigate('/events');
       })
       .catch(error => {
         console.log(error.response.data);
@@ -131,7 +128,7 @@ export default function Home() {
 
         <Text style={[globalStyles.sectionTitle, { marginBottom: 10, marginLeft: 10 }]}>Eventos Próximos</Text>
 
-        <View style={{ alignItems: "center" }}>
+        <View>
           <FlatList
             data={[...event].reverse()}
             renderItem={({ item }) => (
@@ -160,6 +157,7 @@ export default function Home() {
           buttonText={isUserInEvent(openEvent._id) ? "Sair" : "Participar"}
           borderButton={isUserInEvent(openEvent._id)}
           onPress={isUserInEvent(openEvent._id) ? () => onSubmitRemoveEvent(openEvent._id) : () => onSubmitAddEvent(openEvent._id)}
+          imageHeight={150}
           loading={loading}
         />
       </MainModal>
